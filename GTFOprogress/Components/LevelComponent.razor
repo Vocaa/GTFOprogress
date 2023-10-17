@@ -1,0 +1,87 @@
+﻿@code {
+
+    public enum TaskState
+    {
+        Empty,
+        Incomplete,
+        Complete
+    }
+
+    public string LevelId { get; set; } = "R1A1";
+    public TaskState LevelCompletion { get; set; } = TaskState.Incomplete;
+    public TaskState SideObjective { get; set; } = TaskState.Empty;
+    public TaskState HardMode { get; set; } = TaskState.Empty;
+    public TaskState AllInOneGo { get; set; } = TaskState.Empty;
+}
+
+<div class="level-card">
+    <h2>@LevelId</h2>
+    <div class="task-completion-indicators">
+        @if (LevelCompletion != TaskState.Empty)
+        {
+            <div class="task-indicator level-completion @(LevelCompletion.ToString().ToLower())"
+                 title="Level Completion">
+                ◼
+            </div>
+        }
+
+        @if (SideObjective != TaskState.Empty)
+        {
+            <div class="task-indicator side-objective @(SideObjective.ToString().ToLower())"
+                 title="Side Objective">
+                ◼
+            </div>
+        }
+
+        @if (HardMode != TaskState.Empty)
+        {
+            <div class="task-indicator hard-mode @(HardMode.ToString().ToLower())"
+                 title="Hard Mode">
+                ◼
+            </div>
+        }
+
+        @if (AllInOneGo != TaskState.Empty)
+        {
+            <div class="task-indicator all-in-one-go @(AllInOneGo.ToString().ToLower())"
+                 title="All in One Go">
+                ◼
+            </div>
+        }
+
+    </div>
+</div>
+
+<style>
+    .level-card {
+        background: /*...*/;
+        padding: 10px;
+        border-radius: 5px;
+        width: 150px;
+    }
+
+    .task-completion-indicators {
+        display: flex;
+        gap: 10px;
+    }
+
+    .task-indicator {
+        width: 30px;
+        height: 30px;
+        background: grey;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .task-indicator.empty {
+            color: rgba(255, 255, 255, 1);
+    }
+
+    .task-indicator.incomplete {
+            color: rgba(255, 255, 255, 0.5);
+    }
+
+    .task-indicator.complete {
+            color: rgba(255, 255, 255, 0);
+    }
+</style>
