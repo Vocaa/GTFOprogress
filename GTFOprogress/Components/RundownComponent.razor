@@ -1,5 +1,51 @@
-﻿<h3>RundownComponent</h3>
+﻿@using GTFOprogress.Models;
+@using GTFOProgress.Common.Tier;
+
+
+<div class="card">
+    <div class="header">
+
+    </div>
+    <div class="levels">
+        <div class="row">
+
+        </div>
+    </div>
+
+
+    @for (int i = 1; i <= height; i++)
+    {
+        <div class="row">
+        @for (int j = 1; j <= width; j++)
+        {
+                <div class="col">
+                    @if (rundown.levels.Any(x => ((int)x.tier == i) && (x.level == j)))
+                    {
+                        <LevelComponent  />
+                    }
+                </div>
+        }
+        </div>
+    }
+
+</div>
 
 @code {
+    [Parameter]
+    public Rundown rundown { get; set; }
+
+    int width = 4;
+    int height = 5;
+
+    protected override Task OnInitializedAsync()
+    {
+
+        return base.OnInitializedAsync();
+    }
+
+    protected void CreateGrid()
+    {
+
+    }
 
 }

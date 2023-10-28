@@ -11,12 +11,18 @@ namespace GTFOprogress.Services
 
         protected RundownRepository _rundownRepository;
 
+        protected IConfiguration _config;
+
         protected State _state;
 
-        public StateHandlerService(ILocalStorageService _localStorage, RundownRepository _rundownRepository)
+        public StateHandlerService(ILocalStorageService _localStorage, RundownRepository _rundownRepository, IConfiguration _config)
         {
             this._localStorage = _localStorage;
             this._rundownRepository = _rundownRepository;
+            this._config = _config;
+            _state = this.LoadState().Result;
+            _state.Version = _config["version"];
+
         }
 
         private async Task<State> LoadState()
