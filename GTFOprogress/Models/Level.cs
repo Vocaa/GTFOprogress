@@ -2,7 +2,7 @@
 using GTFOProgress.Common.Tier;
 using GTFOProgress.Common.TaskState;
 
-namespace GTFOProgress.Models.Level
+namespace GTFOProgress.Models
 {
     public class Level
     {

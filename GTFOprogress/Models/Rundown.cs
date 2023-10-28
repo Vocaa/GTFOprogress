@@ -1,4 +1,4 @@
-﻿using GTFOProgress.Models.Level;
+﻿using GTFOProgress.Models;
 
 namespace GTFOprogress.Models
 {

@@ -20,13 +20,13 @@ namespace GTFOprogress.Services
             };
         }
 
-        public IEnumerable<Rundown> GetAllRundowns()
+        public State GetData()
         {
             if (!File.Exists(_dataFilePath))
                 throw new FileNotFoundException("The levels.json file was not found.", _dataFilePath);
 
             var jsonData = File.ReadAllText(_dataFilePath);
-            return JsonSerializer.Deserialize<List<Rundown>>(jsonData, _jsonSerializerOptions);
+            return JsonSerializer.Deserialize<State>(jsonData, _jsonSerializerOptions);
         }
     }
 }
