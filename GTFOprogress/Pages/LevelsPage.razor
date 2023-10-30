@@ -1,9 +1,25 @@
 ﻿@page "/"
+@using GTFOprogress.Models
+@using GTFOprogress.Common
 
 <h3>LevelsPage</h3>
 
-<GTFOprogress.Components.LevelComponent></GTFOprogress.Components.LevelComponent>
+<GTFOprogress.Components.LevelComponent level="level" />
+<!--<GTFOprogress.Components.LevelComponent />-->
 
 @code {
-
+    Level level;
+    protected override Task OnInitializedAsync()
+    {
+        level = new Level
+            {
+                Name = "R2E1",
+                Title = "THE TEST",
+                Tier = Tier.E,
+                Stage = 1,
+                Secondary = true,
+                Overload = false,
+        };
+        return base.OnInitializedAsync();
+    }
 }

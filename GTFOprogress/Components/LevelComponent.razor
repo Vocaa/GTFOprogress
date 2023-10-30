@@ -1,5 +1,5 @@
-﻿@using GTFOProgress.Models;
-@using GTFOProgress.Common.TaskState;
+﻿@using GTFOprogress.Models;
+@using GTFOprogress.Common;
 
 @code {
         [Parameter]
@@ -10,13 +10,13 @@
             switch(ts)
             {
                 case "secondary":
-                    level.secondaryState = ToggleState(level.secondaryState);
+                    level.SecondaryState = ToggleState(level.SecondaryState);
                     break;
                 case "overload":
-                    level.overloadState = ToggleState(level.overloadState);
+                    level.OverloadState = ToggleState(level.OverloadState);
                     break;
                 case "prisoner":
-                    level.prisonerEfficiency = ToggleState(level.prisonerEfficiency);
+                    level.PrisonerEfficiency = ToggleState(level.PrisonerEfficiency);
                     break;
                 default:
                     return;
@@ -45,50 +45,72 @@
         }
 }
 
-<div class="level-card">
+<div class="@level.LevelCompletion level-card">
     @if (level != null)
     {
-    <h2>@level.name</h2>
-    <div class="task-completion-indicators">
-
-        <div class="@level.secondaryState" @onclick='() => updateState("secondary")'>◼</div>
-        <div class="@level.overloadState" @onclick='() => updateState("overload")'>◼</div>
-        <div class="@level.prisonerEfficiency" @onclick='() => updateState("prisoner")'>◼</div>
-
-    </div>
+        <h2 class="title">@level.Name</h2>
+        <div class="task-list">
+            <div class="@level.SecondaryState task" @onclick='() => updateState("secondary")'>◼</div>
+            <div class="@level.OverloadState task" @onclick='() => updateState("overload")'>◼</div>
+            <div class="@level.PrisonerEfficiency task" @onclick='() => updateState("prisoner")'>◼</div>
+        </div>
     }
 </div>
 
 <style>
+
+
+
+
+
     .level-card {
-        background: /*...*/;
-        padding: 10px;
-        border-radius: 5px;
-        width: 150px;
-    }
-
-    .task-completion-indicators {
         display: flex;
-        gap: 10px;
-    }
-
-    .task-indicator {
-        width: 30px;
-        height: 30px;
-        background: grey;
-        border-radius: 4px;
+        align-items: flex-start;
+        padding: 3px;
+        border-radius: 1px;
+        /* top | right | bottom | left */
+        border-width: 3px 3px 3px 12px;
+        border-style: solid;
+        width: 100px;
+        margin: 0px;
         cursor: pointer;
     }
 
-    .task-indicator.empty {
-            color: rgba(255, 255, 255, 1);
+    .title {
+        margin: 0px;
+        display:inline;
     }
 
-    .task-indicator.incomplete {
-            color: rgba(255, 255, 255, 0.5);
+    .task-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 0px;
+        width: auto;
+        max-width: auto;
     }
 
-    .task-indicator.complete {
-            color: rgba(255, 255, 255, 0);
+    .task {
+        width: 8px;
+        height: 8px;
+        padding: 0px;
+        margin: 1px;
+        font-size: 10px;
+        cursor: pointer;
+    }
+
+    .Empty {
+        color: rgba(255, 255, 255, 0);
+        border-color: rgba(255, 255, 255, 0);
+    }
+
+    .Incomplete {
+        color: rgba(255, 255, 255, 0.5);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .Complete {
+        color: rgba(255, 255, 255, 1);
+        border-color: rgba(255, 255, 255, 1);
     }
 </style>

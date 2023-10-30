@@ -1,6 +1,6 @@
 using System;
 
-namespace GTFOProgress.Common.TaskState
+namespace GTFOprogress.Common
 {
     public enum TaskState
     {

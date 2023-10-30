@@ -1,7 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using GTFOprogress.Models;
-using GTFOProgress.Common.Tier;
-using GTFOProgress.Models;
+using GTFOprogress.Common;
 
 namespace GTFOprogress.Services
 {
@@ -48,12 +47,12 @@ namespace GTFOprogress.Services
 
         public void UpdateLevel(Level level)
         {
-            _state.Data.Where(e => e.levels == e.levels.Where(i => i.name == level.name)).First().levels.FindIndex(e => e.name == level.name);
+            _state.Data.Where(e => e.Levels == e.Levels.Where(i => i.Name == level.Name)).First().Levels.FindIndex(e => e.Name == level.Name);
         }
 
         public void UpdateRundown(Rundown rundown)
         {
-            _state.Data.First(e => e.id == rundown.id) = rundown;
+            //_state.Data.First(e => e.id == rundown.id) = rundown;
         }
 
 

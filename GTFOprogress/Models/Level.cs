@@ -1,48 +1,58 @@
 ﻿using System;
-using GTFOProgress.Common.Tier;
-using GTFOProgress.Common.TaskState;
+using GTFOprogress.Common;
 
-namespace GTFOProgress.Models
+namespace GTFOprogress.Models
 {
     public class Level
     {
-        public string name { get; set; }
-        public string title { get; set; }
-        public Tier tier { get; set; }
-        public int level { get; set; }
-        public bool secondary { get; set; }
-        public bool overload { get; set; }
-        public TaskState secondaryState { get; set; }
-        public TaskState overloadState { get; set; }
-        public TaskState prisonerEfficiency { get; set; }
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public Tier Tier { get; set; }
+        public int Stage { get; set; }
+        public bool Secondary { get; set; }
+        public bool Overload { get; set; }
 
-
-        public Level(string name, string title, Tier tier, int level, bool secondary, bool overload)
+        private TaskState _levelCompletion = TaskState.Incomplete;
+        public TaskState LevelCompletion
         {
-            this.name = name;
-            this.title = title;
-            this.tier = tier;
-            this.level = level;
-            this.secondary = secondary;
-            this.overload = overload;
-            this.secondaryState = (this.hasSecondary()) ? TaskState.Incomplete : TaskState.Empty;
-            this.overloadState = (this.hasOverload()) ? TaskState.Incomplete : TaskState.Empty;
-            this.prisonerEfficiency = (this.hasPrisonerEfficiency()) ? TaskState.Incomplete : TaskState.Empty;
+            get => _levelCompletion;
+            set => _levelCompletion = (value == TaskState.Empty) ? TaskState.Incomplete : value;
+        }
+
+        private TaskState? _secondaryState;
+        public TaskState SecondaryState
+        {
+            get => _secondaryState ?? (Secondary ? TaskState.Incomplete : TaskState.Empty);
+            set => _secondaryState = value;
+        }
+
+        private TaskState? _overloadState;
+        public TaskState OverloadState
+        {
+            get => _overloadState ?? (Overload ? TaskState.Incomplete : TaskState.Empty);
+            set => _overloadState = value;
+        }
+
+        private TaskState? _prisonerEfficiency;
+        public TaskState PrisonerEfficiency
+        {
+            get => _prisonerEfficiency ?? ((Secondary && Overload) ? TaskState.Incomplete : TaskState.Empty);
+            set => _prisonerEfficiency = value;
         }
 
         public bool hasSecondary()
         {
-            return secondary;
+            return Secondary;
         }
 
         public bool hasOverload() 
         { 
-            return overload; 
+            return Overload; 
         }
 
         public bool hasPrisonerEfficiency()
         {
-            return (secondary && overload);
+            return (Secondary && Overload);
         }
     }
 }
