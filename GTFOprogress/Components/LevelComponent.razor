@@ -9,6 +9,9 @@
         {
             switch(ts)
             {
+                case "completion":
+                    level.LevelCompletion = ToggleState(level.LevelCompletion);
+                    break;
                 case "secondary":
                     level.SecondaryState = ToggleState(level.SecondaryState);
                     break;
