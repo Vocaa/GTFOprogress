@@ -52,9 +52,9 @@
     @if (level != null)
     {
         <h2 class="title">@level.Name</h2>
-        <div class="task-list">
+        <div class="task-list" @onclick:stopPropagation="true">
             <div class="@level.SecondaryState task" @onclick='() => updateState("secondary")'></div>
-            <div class="@level.OverloadState task" @onclick='() => updateState("overload")' @onclick:stopPropagation="true"></div>
+            <div class="@level.OverloadState task" @onclick='() => updateState("overload")'></div>
             <div class="@level.PrisonerEfficiency task" @onclick='() => updateState("prisoner")'></div>
         </div>
     }
