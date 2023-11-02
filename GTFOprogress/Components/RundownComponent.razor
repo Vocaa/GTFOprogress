@@ -2,7 +2,7 @@
 @using GTFOprogress.Common;
 
 
-<div class="card container">
+<div class="col rundown-card">
 
     @foreach (Tier tier in Tier.GetValues(typeof(Tier)))
     {
@@ -10,7 +10,7 @@
         
         @foreach (Level level in rundown.GetTier(tier))
         {
-            <div class="col">
+            <div class="row-cols-4 m-2 w-auto">
                 <LevelComponent level="level"/>
             </div>
         }
@@ -19,6 +19,17 @@
 
 
 </div>
+
+<style>
+    .rundown-card {
+        margin: 1em;
+        border-style: solid;
+        border-color: rgba(255, 255, 255, 1);
+        border-width: 1px;
+        width: 550px;
+        height: 302px;
+    }
+</style>
 
 @code {
     [Parameter]

@@ -20,7 +20,7 @@ namespace GTFOprogress.Services
             _config = config;
             _localStorage = localStorage;
         }
-        private async Task InitializeState()
+        public async Task InitializeState()
         {
             _state = await LoadState();
             _state.Version = _config["version"];

@@ -8,18 +8,27 @@
 
 <h3>LevelsPage</h3>
 
-@foreach (Rundown rundown in rundowns)
-{
-    <RundownComponent rundown="rundown"/>
-}
+<div class="rundown-container">
+    @foreach (Rundown rundown in rundowns)
+    {
+        <div class="col">
+            <RundownComponent rundown="rundown" />
+        </div>
+    }
+</div>
+
+<style>
+
+</style>
+
 
 
 @code {
     List<Rundown> rundowns;
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
+        await _stateHandler.InitializeState();
         rundowns = _stateHandler.GetRundowns();
-        return base.OnInitializedAsync();
     }
 
 
