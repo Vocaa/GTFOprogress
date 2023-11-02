@@ -2,31 +2,21 @@
 @using GTFOprogress.Common;
 
 
-<div class="card">
-    <div class="header">
+<div class="card container">
 
-    </div>
-    <div class="levels">
-        <div class="row">
-
-        </div>
-    </div>
-
-
-    @for (int i = 1; i <= height; i++)
+    @foreach (Tier tier in Tier.GetValues(typeof(Tier)))
     {
-        <div class="row row-cols-4">
-        @for (int j = 1; j <= width; j++)
+        <div class="row">
+        
+        @foreach (Level level in rundown.GetTier(tier))
         {
-                <div class="col">
-                    @if (rundown.Levels.Any(x => ((int)x.Tier == i) && (x.Stage == j)))
-                    {
-                        <LevelComponent  />
-                    }
-                </div>
+            <div class="col">
+                <LevelComponent level="level"/>
+            </div>
         }
         </div>
     }
+
 
 </div>
 

@@ -1,61 +1,47 @@
 ﻿using Blazored.LocalStorage;
 using GTFOprogress.Models;
 using GTFOprogress.Common;
+using System.Reflection.Metadata.Ecma335;
 
 namespace GTFOprogress.Services
 {
     public class StateHandlerService
     {
-        protected ILocalStorageService _localStorage;
-
         protected RundownRepository _rundownRepository;
-
+        private readonly LocalStorageServiceFactory _localStorageServiceFactory;
         protected IConfiguration _config;
-
         protected State _state;
 
-        public StateHandlerService(ILocalStorageService _localStorage, RundownRepository _rundownRepository, IConfiguration _config)
+        public StateHandlerService(RundownRepository rundownRepository,
+                                   IConfiguration config,
+                                   LocalStorageServiceFactory localStorageServiceFactory)
         {
-            this._localStorage = _localStorage;
-            this._rundownRepository = _rundownRepository;
-            this._config = _config;
-            _state = this.LoadState().Result;
+            _rundownRepository = rundownRepository;
+            _config = config;
+            _localStorageServiceFactory = localStorageServiceFactory;
+            InitializeState();
+        }
+        private async void InitializeState()
+        {
+            _state = await LoadState();
             _state.Version = _config["version"];
-
         }
 
         private async Task<State> LoadState()
         {
-            bool local = await _localStorage.ContainKeyAsync("data");
-
-            if (local)
-            {
-                return await _localStorage.GetItemAsync<State>("data");
-            }
-            else
-            {
-                return await Task.FromResult(_rundownRepository.GetData());
-            }
+            var localStorage = _localStorageServiceFactory.Create();
+            bool local = await localStorage.ContainKeyAsync("data");
+            return local ? await localStorage.GetItemAsync<State>("data") : _rundownRepository.GetData();
         }
 
-        private async void SaveState(State state)
+        public void SaveState()
         {
-            await _localStorage.SetItemAsync("data", state);
+            var localStorage = _localStorageServiceFactory.Create();
+            localStorage.SetItemAsync("data", _state);
         }
 
         public State GetState() { return _state; }
-
-        public void UpdateLevel(Level level)
-        {
-            _state.Data.Where(e => e.Levels == e.Levels.Where(i => i.Name == level.Name)).First().Levels.FindIndex(e => e.Name == level.Name);
-        }
-
-        public void UpdateRundown(Rundown rundown)
-        {
-            //_state.Data.First(e => e.id == rundown.id) = rundown;
-        }
-
-
+        public List<Rundown> GetRundowns() { return _state.Data; }
 
     }
 }

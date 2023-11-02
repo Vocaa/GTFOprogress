@@ -48,40 +48,37 @@
         }
 }
 
-<div class="@level.LevelCompletion level-card">
+<div class="@level.LevelCompletion level-card" @onclick='() => updateState("completion")'>
     @if (level != null)
     {
         <h2 class="title">@level.Name</h2>
         <div class="task-list">
-            <div class="@level.SecondaryState task" @onclick='() => updateState("secondary")'>◼</div>
-            <div class="@level.OverloadState task" @onclick='() => updateState("overload")'>◼</div>
-            <div class="@level.PrisonerEfficiency task" @onclick='() => updateState("prisoner")'>◼</div>
+            <div class="@level.SecondaryState task" @onclick='() => updateState("secondary")'></div>
+            <div class="@level.OverloadState task" @onclick='() => updateState("overload")' @onclick:stopPropagation="true"></div>
+            <div class="@level.PrisonerEfficiency task" @onclick='() => updateState("prisoner")'></div>
         </div>
     }
 </div>
 
 <style>
-
-
-
-
-
     .level-card {
         display: flex;
         align-items: flex-start;
         padding: 3px;
         border-radius: 1px;
-        /* top | right | bottom | left */
+        /*            ↑   →   ↓   ←             */
         border-width: 3px 3px 3px 12px;
         border-style: solid;
         width: 100px;
         margin: 0px;
         cursor: pointer;
+        user-select: none;
     }
 
     .title {
         margin: 0px;
         display:inline;
+        line-height: 1;  
     }
 
     .task-list {
@@ -94,26 +91,44 @@
     }
 
     .task {
-        width: 8px;
-        height: 8px;
+        width: 7px;
+        height: 7px;
         padding: 0px;
         margin: 1px;
         font-size: 10px;
         cursor: pointer;
     }
 
-    .Empty {
+    .level-card.Empty {
         color: rgba(255, 255, 255, 0);
         border-color: rgba(255, 255, 255, 0);
     }
 
-    .Incomplete {
+    .level-card.Incomplete {
         color: rgba(255, 255, 255, 0.5);
         border-color: rgba(255, 255, 255, 0.5);
     }
 
-    .Complete {
+    .level-card.Complete {
         color: rgba(255, 255, 255, 1);
+        border-color: rgba(255, 255, 255, 1);
+    }
+
+    /* For .task */
+    .task.Empty {
+        background-color: rgba(255, 255, 255, 0);
+        border-color: rgba(255, 255, 255, 0.2);
+        border-width: 0.5px;
+        border-style: solid;
+    }
+
+    .task.Incomplete {
+        background-color: rgba(255, 255, 255, 0.5);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .task.Complete {
+        background-color: rgba(255, 255, 255, 1);
         border-color: rgba(255, 255, 255, 1);
     }
 </style>

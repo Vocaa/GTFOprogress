@@ -1,4 +1,5 @@
-﻿using GTFOprogress.Models;
+﻿using GTFOprogress.Common;
+using GTFOprogress.Models;
 
 namespace GTFOprogress.Models
 {
@@ -18,6 +19,11 @@ namespace GTFOprogress.Models
             this.Title = title;
             this.Identifier = identifier;
             this.Levels = levels ?? new List<Level>(); // Ensure levels is never null
+        }
+
+        public List<Level> GetTier(Tier tier)
+        {
+            return this.Levels.Where(level => level.Tier == tier).ToList();
         }
 
     }

@@ -1,25 +1,39 @@
 ﻿@page "/"
 @using GTFOprogress.Models
 @using GTFOprogress.Common
+@using GTFOprogress.Services
+@using GTFOprogress.Components
+
+@inject StateHandlerService _stateHandler
 
 <h3>LevelsPage</h3>
 
-<GTFOprogress.Components.LevelComponent level="level" />
-<!--<GTFOprogress.Components.LevelComponent />-->
+@foreach (Rundown rundown in rundowns)
+{
+    <RundownComponent rundown="rundown"/>
+}
+
 
 @code {
-    Level level;
+    List<Rundown> rundowns;
     protected override Task OnInitializedAsync()
     {
-        level = new Level
+        rundowns = _stateHandler.GetRundowns();
+        return base.OnInitializedAsync();
+    }
+
+
+
+    public Level getTestLevelData()
+    {
+        return new Level
             {
                 Name = "R2E1",
                 Title = "THE TEST",
                 Tier = Tier.E,
                 Stage = 1,
-                Secondary = true,
-                Overload = false,
-        };
-        return base.OnInitializedAsync();
+                Secondary = false,
+                Overload = true,
+            };
     }
 }
