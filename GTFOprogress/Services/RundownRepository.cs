@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Net.Http;
+using System.Net.Http.Json;
 
 namespace GTFOprogress.Services
 {
     public class RundownRepository
     {
+        private HttpClient _httpClient;
         private readonly string _dataFilePath = "Data/levels.json";
         private JsonSerializerOptions _jsonSerializerOptions;
 
-        public RundownRepository()
+        public RundownRepository(HttpClient client)
         {
+            _httpClient = client;
             _jsonSerializerOptions = new JsonSerializerOptions
             {
                 Converters = { new JsonStringEnumConverter() },
@@ -20,13 +24,6 @@ namespace GTFOprogress.Services
             };
         }
 
-        public State GetData()
-        {
-            if (!File.Exists(_dataFilePath))
-                throw new FileNotFoundException("The levels.json file was not found.", _dataFilePath);
-
-            var jsonData = File.ReadAllText(_dataFilePath);
-            return JsonSerializer.Deserialize<State>(jsonData, _jsonSerializerOptions);
-        }
+        public async Task<State> GetData() => await _httpClient.GetFromJsonAsync<State>("Data/levels.json");
     }
 }

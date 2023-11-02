@@ -16,4 +16,10 @@
     <Folder Include="wwwroot\sample-data\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\Data\levels.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

@@ -8,20 +8,19 @@ namespace GTFOprogress.Services
     public class StateHandlerService
     {
         protected RundownRepository _rundownRepository;
-        private readonly LocalStorageServiceFactory _localStorageServiceFactory;
+        private readonly ILocalStorageService _localStorage;
         protected IConfiguration _config;
         protected State _state;
 
         public StateHandlerService(RundownRepository rundownRepository,
                                    IConfiguration config,
-                                   LocalStorageServiceFactory localStorageServiceFactory)
+                                   ILocalStorageService localStorage)
         {
             _rundownRepository = rundownRepository;
             _config = config;
-            _localStorageServiceFactory = localStorageServiceFactory;
-            InitializeState();
+            _localStorage = localStorage;
         }
-        private async void InitializeState()
+        private async Task InitializeState()
         {
             _state = await LoadState();
             _state.Version = _config["version"];
@@ -29,15 +28,13 @@ namespace GTFOprogress.Services
 
         private async Task<State> LoadState()
         {
-            var localStorage = _localStorageServiceFactory.Create();
-            bool local = await localStorage.ContainKeyAsync("data");
-            return local ? await localStorage.GetItemAsync<State>("data") : _rundownRepository.GetData();
+            bool local = await _localStorage.ContainKeyAsync("data");
+            return local ? await _localStorage.GetItemAsync<State>("data") : await _rundownRepository.GetData();
         }
 
         public void SaveState()
         {
-            var localStorage = _localStorageServiceFactory.Create();
-            localStorage.SetItemAsync("data", _state);
+            _localStorage.SetItemAsync("data", _state);
         }
 
         public State GetState() { return _state; }
