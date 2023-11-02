@@ -1,25 +1,43 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
-
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+  <PropertyGroup Label="TailwindVars:Windows" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+    <TailwindInstallUrl>https://github.com/tailwindlabs/tailwindcss/releases/download/v3.3.3/tailwindcss-windows-x64.exe</TailwindInstallUrl>
+    <TailwindCliName>tailwindcss.exe</TailwindCliName>
+  </PropertyGroup>
+  <PropertyGroup Label="TailwindVars:Linux" Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+    <TailwindInstallUrl>https://github.com/tailwindlabs/tailwindcss/releases/download/v3.3.3/tailwindcss-linux-x64</TailwindInstallUrl>
+    <TailwindCliName>tailwindcss</TailwindCliName>
+  </PropertyGroup>
+  <PropertyGroup Label="TailwindVars:Mac" Condition="$([MSBuild]::IsOSPlatform('OSX'))">
+    <TailwindInstallUrl>https://github.com/tailwindlabs/tailwindcss/releases/download/v3.3.3/tailwindcss-macos-x64</TailwindInstallUrl>
+    <TailwindCliName>tailwindcss</TailwindCliName>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.13" PrivateAssets="all" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="wwwroot\sample-data\" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Update="wwwroot\Data\levels.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
+  <Target Name="Tailwind:Install" AfterTargets="AfterBuild">
+    <Message Importance="high" Text="Installing Tailwind CLI..." />
+    <DownloadFile SkipUnchangedFiles="true" SourceUrl="$(TailwindInstallUrl)" DestinationFileName="$(TailwindCliName)" DestinationFolder="$(MSBuildProjectDirectory)" />
+  </Target>
+  <Target Name="Tailwind:Permissions" AfterTargets="AfterBuild" DependsOnTargets="Tailwind:Install">
+    <Exec Condition="$([MSBuild]::IsOSPlatform('Linux'))" Command="chmod +x $(TailwindCliName)" />
+  </Target>
+  <Target Name="Tailwind:Run" AfterTargets="AfterBuild" DependsOnTargets="Tailwind:Permissions">
+    <Message Importance="high" Text="Building css with Tailwind..." />
+    <Exec Command=".\tailwindcss -i .\app.css -o .\wwwroot\css\site.css" />
+  </Target>
 </Project>

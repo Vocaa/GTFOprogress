@@ -1,5 +1,8 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html, body {
     font-family: 'Share Tech', sans-serif;

@@ -2,15 +2,15 @@
 @using GTFOprogress.Common;
 
 
-<div class="col rundown-card">
+<div class="rundown-card">
 
     @foreach (Tier tier in Tier.GetValues(typeof(Tier)))
     {
-        <div class="row">
+        <div class="">
         
         @foreach (Level level in rundown.GetTier(tier))
         {
-            <div class="row-cols-4 m-2 w-auto">
+            <div class="">
                 <LevelComponent level="level"/>
             </div>
         }

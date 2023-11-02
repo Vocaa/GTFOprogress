@@ -4,16 +4,20 @@
 @using GTFOprogress.Services
 @using GTFOprogress.Components
 
+@inject IConfiguration _config
 @inject StateHandlerService _stateHandler
 
-<h3>LevelsPage</h3>
+<h3>Version: @_config["version"]</h3>
 
 <div class="rundown-container">
-    @foreach (Rundown rundown in rundowns)
+    @if (rundowns != null)
     {
-        <div class="col">
-            <RundownComponent rundown="rundown" />
-        </div>
+        foreach (Rundown rundown in rundowns)
+        {
+            <div class="">
+                <RundownComponent rundown="rundown" />
+            </div>
+        }
     }
 </div>
 
@@ -24,14 +28,13 @@
 
 
 @code {
-    List<Rundown> rundowns;
+    List<Rundown>? rundowns;
+
     protected override async Task OnInitializedAsync()
     {
         await _stateHandler.InitializeState();
         rundowns = _stateHandler.GetRundowns();
     }
-
-
 
     public Level getTestLevelData()
     {
