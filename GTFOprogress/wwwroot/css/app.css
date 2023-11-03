@@ -1,18 +1,21 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html, body {
     font-family: 'Share Tech', sans-serif;
-    background-color: rgba(25, 25, 25, 1);
+    font-size: 1.25rem;
+    background-color: rgba(17, 20, 23, 1);
+    color: rgba(255, 255, 255, 1);
 }
 
 h1:focus {
     outline: none;
 }
-
+ 
 a, .btn-link {
     color: #0071c1;
 }

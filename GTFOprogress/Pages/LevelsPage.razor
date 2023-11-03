@@ -7,25 +7,27 @@
 @inject IConfiguration _config
 @inject StateHandlerService _stateHandler
 
+<!--##################################################################-->
+<!--##################################################################-->
+<!--##################################################################-->
+
 <h3>Version: @_config["version"]</h3>
 
-<div class="rundown-container">
+<div class="columns-2">
     @if (rundowns != null)
     {
         foreach (Rundown rundown in rundowns)
         {
-            <div class="">
+            <div class="break-inside-avoid-column basis-full">
                 <RundownComponent rundown="rundown" />
             </div>
         }
     }
 </div>
 
-<style>
-
-</style>
-
-
+<!--##################################################################-->
+<!--##################################################################-->
+<!--##################################################################-->
 
 @code {
     List<Rundown>? rundowns;
