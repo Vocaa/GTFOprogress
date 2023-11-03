@@ -5,21 +5,21 @@
 <!--##################################################################-->
 <!--##################################################################-->
 
-<div class="rundown-card border border-white">
+<div class="p-2">
 
-    <div>
+    <div class="columns-2">
         <div>@rundown.Name</div>
-        <div>@rundown.Title</div>
+        <div class="text-base text-white text-opacity-50">@rundown.Title</div>
     </div>
 
-    <div>   
-    @foreach (Tier tier in Tier.GetValues(typeof(Tier)))
+    <div class="border border-white">
+        @foreach (Tier tier in Tier.GetValues(typeof(Tier)))
     {
         <div class="columns-4">
         
         @foreach (Level level in rundown.GetTier(tier))
         {
-            <div class="break-inside-avoid-column">
+            <div class="break-inside-avoid-column p-2">
                 <div class="basis-full text-xs">"@level.Title"</div>
                 <div class="basis-full text-xl">
                     <LevelComponent level="level" />
