@@ -19,8 +19,8 @@
         
         @foreach (Level level in rundown.GetTier(tier))
         {
-            <div class="break-inside-avoid-column p-2">
-                <div class="basis-full text-xs">"@level.Title"</div>
+            <div class="break-inside-avoid-column p-2 transition-transform duration-100 hover:scale-110">
+                <div class="basis-full text-xs whitespace-nowrap">"@level.Title"</div>
                 <div class="basis-full text-xl">
                     <LevelComponent level="level" />
                 </div>

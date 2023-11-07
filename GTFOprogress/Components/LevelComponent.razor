@@ -8,10 +8,10 @@
 <!--##################################################################-->
 <!--##################################################################-->
 
-<div class="@level.LevelCompletion level-card block" @onclick='() => updateState("completion")'>
+<div class="@level.LevelCompletion level-card flex items-start p-1 border-solid rounded-sm border-y-4 border-r-4 border-l-[12px] cursor-default select-none" @onclick='() => updateState("completion")'>
     @if (level != null)
     {
-        <div class="title">@level.Tier@level.Stage</div>
+        <div class="title">@level.Name</div>
         <div class="task-list" @onclick:stopPropagation="true">
             <div class="@level.SecondaryState task" @onclick='() => updateState("secondary")'></div>
             <div class="@level.OverloadState task" @onclick='() => updateState("overload")'></div>
@@ -22,17 +22,7 @@
 
 <style>
     .level-card {
-        display: flex;
-        align-items: flex-start;
-        padding: 3px;
-        border-radius: 1px;
-        /*            ↑   →   ↓   ←             */
-        border-width: 3px 3px 3px 12px;
-        border-style: solid;
-        width: 100px;
-        margin: 0px;
-        cursor: pointer;
-        user-select: none;
+
     }
 
     .title {
@@ -56,12 +46,13 @@
         padding: 0px;
         margin: 1px;
         font-size: 10px;
-        cursor: pointer;
+        cursor: default;
     }
 
     .level-card.Empty {
         color: rgba(255, 255, 255, 0);
         border-color: rgba(255, 255, 255, 0);
+        cursor: not-allowed;
     }
 
     .level-card.Incomplete {
@@ -80,6 +71,7 @@
         border-color: rgba(255, 255, 255, 0.2);
         border-width: 0.5px;
         border-style: solid;
+        cursor: not-allowed;
     }
 
     .task.Incomplete {

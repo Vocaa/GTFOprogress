@@ -13,12 +13,12 @@
 
 <h3>Version: @_config["version"]</h3>
 
-<div class="columns-2">
+<div class="">
     @if (rundowns != null)
     {
         foreach (Rundown rundown in rundowns)
         {
-            <div class="break-inside-avoid-column basis-full">
+            <div class="break-inside-avoid-column w-[29rem] transition-transform duration-100 hover:scale-110">
                 <RundownComponent rundown="rundown" />
             </div>
         }
