@@ -538,6 +538,10 @@ video {
   visibility: collapse;
 }
 
+.m-\[0\.0625rem\] {
+  margin: 0.0625rem;
+}
+
 .me-2 {
   -webkit-margin-end: 0.5rem;
           margin-inline-end: 0.5rem;
@@ -551,8 +555,16 @@ video {
   display: flex;
 }
 
+.h-\[0\.3125rem\] {
+  height: 0.3125rem;
+}
+
 .w-96 {
   width: 24rem;
+}
+
+.w-\[0\.3125rem\] {
+  width: 0.3125rem;
 }
 
 .w-\[60rem\] {

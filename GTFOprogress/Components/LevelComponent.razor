@@ -16,9 +16,9 @@
             <div class="@level.LevelCompletion level-card flex p-0.5 border-solid border-y-2 border-r-2 border-l-8 cursor-default select-none text-base" @onclick='() => updateState("completion")'>
                 <div class="grow flex justify-center">@level.Name</div>
                 <div class="flex flex-col justify-start cursor-default" @onclick:stopPropagation="true">
-                    <div class="@level.SecondaryState task" @onclick='() => updateState("secondary")'></div>
-                    <div class="@level.OverloadState task" @onclick='() => updateState("overload")'></div>
-                    <div class="@level.PrisonerEfficiency task" @onclick='() => updateState("prisoner")'></div>
+                    <div class="@level.SecondaryState task w-[0.3125rem] h-[0.3125rem] p-0 m-[0.0625rem] cursor-default" @onclick='() => updateState("secondary")'></div>
+                    <div class="@level.OverloadState task w-[0.3125rem] h-[0.3125rem] p-0 m-[0.0625rem] cursor-default" @onclick='() => updateState("overload")'></div>
+                    <div class="@level.PrisonerEfficiency task w-[0.3125rem] h-[0.3125rem] p-0 m-[0.0625rem] cursor-default" @onclick='() => updateState("prisoner")'></div>
                 </div>
             </div>
         </div>
@@ -49,12 +49,7 @@
     }
 
     .task {
-        width: 7px;
-        height: 7px;
-        padding: 0px;
-        margin: 1px;
-        font-size: 10px;
-        cursor: default;
+
     }
 
     .level-card.Empty {
