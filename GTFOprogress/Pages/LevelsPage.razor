@@ -13,16 +13,18 @@
 
 <h3>Version: @_config["version"]</h3>
 
-<div class="">
-    @if (rundowns != null)
-    {
-        foreach (Rundown rundown in rundowns)
+<div class="flex justify-center">
+    <div class="flex justify-center flex-wrap w-[60rem] gap-8">
+        @if (rundowns != null)
         {
-            <div class="break-inside-avoid-column w-[29rem] transition-transform duration-100 hover:scale-110">
-                <RundownComponent rundown="rundown" />
-            </div>
+            foreach (Rundown rundown in rundowns)
+            {
+                <div class="break-inside-avoid-column w-96 transition-transform duration-100 hover:scale-110">
+                    <RundownComponent rundown="rundown" />
+                </div>
+            }
         }
-    }
+    </div>
 </div>
 
 <!--##################################################################-->

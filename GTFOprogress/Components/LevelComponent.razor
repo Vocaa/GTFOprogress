@@ -8,15 +8,23 @@
 <!--##################################################################-->
 <!--##################################################################-->
 
-<div class="@level.LevelCompletion level-card flex items-start p-1 border-solid rounded-sm border-y-4 border-r-4 border-l-[12px] cursor-default select-none" @onclick='() => updateState("completion")'>
+<div>
     @if (level != null)
     {
-        <div class="title">@level.Name</div>
-        <div class="task-list" @onclick:stopPropagation="true">
-            <div class="@level.SecondaryState task" @onclick='() => updateState("secondary")'></div>
-            <div class="@level.OverloadState task" @onclick='() => updateState("overload")'></div>
-            <div class="@level.PrisonerEfficiency task" @onclick='() => updateState("prisoner")'></div>
+        <div>
+            <div class="text-xs whitespace-nowrap">"@level.Title"</div>
+            <div class="@level.LevelCompletion level-card flex p-0.5 border-solid border-y-2 border-r-2 border-l-8 cursor-default select-none text-base" @onclick='() => updateState("completion")'>
+                <div class="grow flex justify-center">@level.Name</div>
+                <div class="flex flex-col justify-start cursor-default" @onclick:stopPropagation="true">
+                    <div class="@level.SecondaryState task" @onclick='() => updateState("secondary")'></div>
+                    <div class="@level.OverloadState task" @onclick='() => updateState("overload")'></div>
+                    <div class="@level.PrisonerEfficiency task" @onclick='() => updateState("prisoner")'></div>
+                </div>
+            </div>
         </div>
+    } else
+    {
+        <div></div>
     }
 </div>
 
