@@ -4,34 +4,43 @@
 @using GTFOprogress.Services
 @using GTFOprogress.Components
 
+@inject IConfiguration _config
 @inject StateHandlerService _stateHandler
 
-<h3>LevelsPage</h3>
+<!--##################################################################-->
+<!--##################################################################-->
+<!--##################################################################-->
 
-<div class="rundown-container">
-    @foreach (Rundown rundown in rundowns)
-    {
-        <div class="col">
-            <RundownComponent rundown="rundown" />
-        </div>
-    }
+<h3 class="text-white text-xs">Version: @_config["version"]</h3>
+<h2 class="text-white text-opacity-50 text-xs">Last Updated: @_config["last-updated"]</h2>
+
+
+<div class="flex justify-center">
+    <div class="flex justify-center flex-wrap w-[60rem] gap-8">
+        @if (rundowns != null)
+        {
+            foreach (Rundown rundown in rundowns)
+            {
+                <div class="break-inside-avoid-column w-96 transition-transform duration-100 hover:scale-110">
+                    <RundownComponent rundown="rundown" />
+                </div>
+            }
+        }
+    </div>
 </div>
 
-<style>
-
-</style>
-
-
+<!--##################################################################-->
+<!--##################################################################-->
+<!--##################################################################-->
 
 @code {
-    List<Rundown> rundowns;
+    List<Rundown>? rundowns;
+
     protected override async Task OnInitializedAsync()
     {
         await _stateHandler.InitializeState();
         rundowns = _stateHandler.GetRundowns();
     }
-
-
 
     public Level getTestLevelData()
     {

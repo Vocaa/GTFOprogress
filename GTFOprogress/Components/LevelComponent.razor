@@ -1,78 +1,36 @@
-﻿@using GTFOprogress.Models;
-@using GTFOprogress.Common;
+﻿@using GTFOprogress.Models
+@using GTFOprogress.Common
+@using GTFOprogress.Services
 
-@code {
-        [Parameter]
-        public Level? level { get; set; }
+@inject StateHandlerService _stateHandler
 
-        public void updateState(string ts)
-        {
-            switch(ts)
-            {
-                case "completion":
-                    level.LevelCompletion = ToggleState(level.LevelCompletion);
-                    break;
-                case "secondary":
-                    level.SecondaryState = ToggleState(level.SecondaryState);
-                    break;
-                case "overload":
-                    level.OverloadState = ToggleState(level.OverloadState);
-                    break;
-                case "prisoner":
-                    level.PrisonerEfficiency = ToggleState(level.PrisonerEfficiency);
-                    break;
-                default:
-                    return;
+<!--##################################################################-->
+<!--##################################################################-->
+<!--##################################################################-->
 
-            }
-            StateHasChanged();
-        }
-
-        public TaskState ToggleState(TaskState ts)
-        {
-            switch (ts)
-            {
-                case TaskState.Empty:
-                    return ts;
-                    break;
-                case TaskState.Incomplete:
-                    return TaskState.Complete;
-                    break;
-                case TaskState.Complete:
-                    return TaskState.Incomplete;
-                    break;
-                default:
-                    return ts;
-                    break;
-            }
-        }
-}
-
-<div class="@level.LevelCompletion level-card col" @onclick='() => updateState("completion")'>
+<div>
     @if (level != null)
     {
-        <h2 class="title">@level.Name</h2>
-        <div class="task-list" @onclick:stopPropagation="true">
-            <div class="@level.SecondaryState task" @onclick='() => updateState("secondary")'></div>
-            <div class="@level.OverloadState task" @onclick='() => updateState("overload")'></div>
-            <div class="@level.PrisonerEfficiency task" @onclick='() => updateState("prisoner")'></div>
+        <div>
+            <div class="text-xs whitespace-nowrap">"@level.Title"</div>
+            <div class="@level.LevelCompletion level-card flex p-0.5 border-solid border-y-2 border-r-2 border-l-8 cursor-default select-none text-base" @onclick='() => updateState("completion")'>
+                <div class="grow flex justify-center">@level.Name</div>
+                <div class="flex flex-col justify-start cursor-default" @onclick:stopPropagation="true">
+                    <div class="@level.SecondaryState task w-[0.3125rem] h-[0.3125rem] p-0 m-[0.0625rem] cursor-default" @onclick='() => updateState("secondary")'></div>
+                    <div class="@level.OverloadState task w-[0.3125rem] h-[0.3125rem] p-0 m-[0.0625rem] cursor-default" @onclick='() => updateState("overload")'></div>
+                    <div class="@level.PrisonerEfficiency task w-[0.3125rem] h-[0.3125rem] p-0 m-[0.0625rem] cursor-default" @onclick='() => updateState("prisoner")'></div>
+                </div>
+            </div>
         </div>
+    } else
+    {
+        <div></div>
     }
 </div>
 
 <style>
     .level-card {
-        display: flex;
-        align-items: flex-start;
-        padding: 3px;
-        border-radius: 1px;
-        /*            ↑   →   ↓   ←             */
-        border-width: 3px 3px 3px 12px;
-        border-style: solid;
-        width: 100px;
-        margin: 0px;
-        cursor: pointer;
-        user-select: none;
+
     }
 
     .title {
@@ -91,17 +49,13 @@
     }
 
     .task {
-        width: 7px;
-        height: 7px;
-        padding: 0px;
-        margin: 1px;
-        font-size: 10px;
-        cursor: pointer;
+
     }
 
     .level-card.Empty {
         color: rgba(255, 255, 255, 0);
         border-color: rgba(255, 255, 255, 0);
+        cursor: not-allowed;
     }
 
     .level-card.Incomplete {
@@ -132,3 +86,55 @@
         border-color: rgba(255, 255, 255, 1);
     }
 </style>
+
+<!--##################################################################-->
+<!--##################################################################-->
+<!--##################################################################-->
+
+@code {
+    [Parameter]
+    public Level? level { get; set; }
+
+    public void updateState(string ts)
+    {
+        switch (ts)
+        {
+            case "completion":
+                level.LevelCompletion = ToggleState(level.LevelCompletion);
+                break;
+            case "secondary":
+                level.SecondaryState = ToggleState(level.SecondaryState);
+                break;
+            case "overload":
+                level.OverloadState = ToggleState(level.OverloadState);
+                break;
+            case "prisoner":
+                level.PrisonerEfficiency = ToggleState(level.PrisonerEfficiency);
+                break;
+            default:
+                return;
+
+        }
+        _stateHandler.SaveState();
+        StateHasChanged();
+    }
+
+    public TaskState ToggleState(TaskState ts)
+    {
+        switch (ts)
+        {
+            case TaskState.Empty:
+                return ts;
+                break;
+            case TaskState.Incomplete:
+                return TaskState.Complete;
+                break;
+            case TaskState.Complete:
+                return TaskState.Incomplete;
+                break;
+            default:
+                return ts;
+                break;
+        }
+    }
+}

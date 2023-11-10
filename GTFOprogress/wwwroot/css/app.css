@@ -1,15 +1,44 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html, body {
     font-family: 'Share Tech', sans-serif;
-    background-color: rgba(25, 25, 25, 1);
+    font-size: 1.25rem;
+    background-color: rgba(17, 20, 23, 1);
+    color: rgba(255, 255, 255, 1);
+    scrollbar-width: 5px;
+}
+
+::-webkit-scrollbar {
+    width: 8px; /* Sets the width of the scrollbar */
+    margin-right: 2px; /* Adds space between the scrollbar and the edge */
+}
+
+::-webkit-scrollbar-track {
+    background: none; /* Removes the default track styling */
+}
+
+::-webkit-scrollbar-thumb {
+    background: darkgray; /* Your preferred color for the thumb */
+    border-radius: 10px; /* Rounds the corners of the scrollbar thumb */
+    border: 2px solid transparent; /* Creates space between thumb and track without a visible track */
+    background-clip: padding-box; /* Ensures the background is only painted within the border area */
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin; /* Makes scrollbar thin */
+    scrollbar-color: darkgray transparent; /* Sets the thumb color and makes track transparent */
 }
 
 h1:focus {
     outline: none;
 }
-
+ 
 a, .btn-link {
     color: #0071c1;
 }

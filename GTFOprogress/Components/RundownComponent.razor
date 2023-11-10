@@ -1,35 +1,39 @@
 ﻿@using GTFOprogress.Models;
 @using GTFOprogress.Common;
 
+<!--##################################################################-->
+<!--##################################################################-->
+<!--##################################################################-->
 
-<div class="col rundown-card">
+<div class="p-2">
 
-    @foreach (Tier tier in Tier.GetValues(typeof(Tier)))
+    <div class="flex justify-between items-end">
+        <div class="">@rundown.Name</div>
+        <div class="text-base text-white text-opacity-50">@rundown.Title</div>
+    </div>
+
+    <div class="border border-white h-72 w-96 p-1">
+        @foreach (Tier tier in Tier.GetValues(typeof(Tier)))
     {
-        <div class="row">
+        <div class="columns-4">
         
         @foreach (Level level in rundown.GetTier(tier))
         {
-            <div class="row-cols-4 m-2 w-auto">
-                <LevelComponent level="level"/>
+            <div class="break-inside-avoid-column p-1 transition-transform duration-100 hover:scale-110">
+                <div class="">
+                    <LevelComponent level="level" />
+                </div>
             </div>
         }
         </div>
     }
-
+    </div>
 
 </div>
 
-<style>
-    .rundown-card {
-        margin: 1em;
-        border-style: solid;
-        border-color: rgba(255, 255, 255, 1);
-        border-width: 1px;
-        width: 550px;
-        height: 302px;
-    }
-</style>
+<!--##################################################################-->
+<!--##################################################################-->
+<!--##################################################################-->
 
 @code {
     [Parameter]
