@@ -13,6 +13,7 @@ namespace GTFOprogress.Services
         {
             _config = config;
             _localStorage = storage;
+            
         }
 
         public async Task SaveSettings()
@@ -29,11 +30,13 @@ namespace GTFOprogress.Services
         {
             if (await HasSettings())
             {
+                // load settings from browser
                 _settings = await _localStorage.GetItemAsync<Dictionary<string, string>>("settings");
             }
             else
             {
-                return;
+                // load default settings
+                _settings = _config.GetSection("settings").Get<Dictionary<string, string>>();
             }
         }
 

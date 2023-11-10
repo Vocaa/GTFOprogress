@@ -3,6 +3,7 @@
 @using GTFOprogress.Services
 
 @inject StateHandlerService _stateHandler
+@inject SettingsService _settings
 
 <!--##################################################################-->
 <!--##################################################################-->
@@ -52,38 +53,41 @@
 
     }
 
+    /* For level */
     .level-card.Empty {
-        color: rgba(255, 255, 255, 0);
-        border-color: rgba(255, 255, 255, 0);
+        color: @_settings.GetSetting("empty-color");
+        border-color: @_settings.GetSetting("empty-color");
         cursor: not-allowed;
     }
 
     .level-card.Incomplete {
-        color: rgba(255, 255, 255, 0.5);
-        border-color: rgba(255, 255, 255, 0.5);
+        color: @_settings.GetSetting("secondary-color");
+        border-color: @_settings.GetSetting("secondary-color");
     }
 
     .level-card.Complete {
-        color: rgba(255, 255, 255, 1);
-        border-color: rgba(255, 255, 255, 1);
+        color: @_settings.GetSetting("main-color");
+        border-color: @_settings.GetSetting("main-color");
+        box-shadow: 0 0 4px @_settings.GetSetting("main-color");
     }
 
-    /* For .task */
+    /* For task */
     .task.Empty {
-        background-color: rgba(255, 255, 255, 0);
-        border-color: rgba(255, 255, 255, 0.2);
+        background-color: @_settings.GetSetting("empty-color");
+        border-color: @_settings.GetSetting("secondary-color");
         border-width: 0.5px;
         border-style: solid;
     }
 
     .task.Incomplete {
-        background-color: rgba(255, 255, 255, 0.5);
-        border-color: rgba(255, 255, 255, 0.5);
+        background-color: @_settings.GetSetting("secondary-color");
+        border-color: @_settings.GetSetting("secondary-color");
     }
 
     .task.Complete {
-        background-color: rgba(255, 255, 255, 1);
-        border-color: rgba(255, 255, 255, 1);
+        background-color: @_settings.GetSetting("main-color");
+        border-color: @_settings.GetSetting("main-color");
+        box-shadow: 0 0 4px @_settings.GetSetting("main-color");
     }
 </style>
 

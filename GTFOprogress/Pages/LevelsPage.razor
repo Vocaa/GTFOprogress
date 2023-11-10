@@ -6,6 +6,7 @@
 
 @inject IConfiguration _config
 @inject StateHandlerService _stateHandler
+@inject SettingsService _settings
 
 <!--##################################################################-->
 <!--##################################################################-->
@@ -39,6 +40,7 @@
     protected override async Task OnInitializedAsync()
     {
         await _stateHandler.InitializeState();
+        await _settings.LoadSettings();
         rundowns = _stateHandler.GetRundowns();
     }
 
