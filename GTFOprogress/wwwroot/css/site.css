@@ -555,6 +555,10 @@ video {
   display: flex;
 }
 
+.h-72 {
+  height: 18rem;
+}
+
 .h-\[0\.3125rem\] {
   height: 0.3125rem;
 }
@@ -585,11 +589,6 @@ video {
           user-select: none;
 }
 
-.columns-2 {
-  -moz-columns: 2;
-       columns: 2;
-}
-
 .columns-4 {
   -moz-columns: 4;
        columns: 4;
@@ -608,12 +607,20 @@ video {
   flex-wrap: wrap;
 }
 
+.items-end {
+  align-items: flex-end;
+}
+
 .justify-start {
   justify-content: flex-start;
 }
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
 }
 
 .gap-8 {
