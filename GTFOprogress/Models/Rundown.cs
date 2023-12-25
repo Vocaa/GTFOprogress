@@ -26,5 +26,15 @@ namespace GTFOprogress.Models
             return this.Levels.Where(level => level.Tier == tier).ToList();
         }
 
+        public int GetCompletedLevelsCount() => Levels.Where(l => l.LevelCompletion == TaskState.Complete).Count();
+
+        public int GetTotalSecondariesCount() => Levels.Where(l => l.SecondaryState != TaskState.Empty).Count();
+        public int GetCompletedSecondariesCount() => Levels.Where(l => l.SecondaryState == TaskState.Complete).Count();
+
+        public int GetTotalOverloadCount() => Levels.Where(l => l.OverloadState != TaskState.Empty).Count();
+        public int GetCompletedOverloadCount() => Levels.Where(l => l.OverloadState == TaskState.Complete).Count();
+
+        public int GetTotalPECount() => Levels.Where(l => l.PrisonerEfficiency != TaskState.Empty).Count();
+        public int GetCompletedPECount() => Levels.Where(l=>l.PrisonerEfficiency == TaskState.Complete).Count();
     }
 }
