@@ -1,5 +1,4 @@
 ﻿using GTFOprogress.Common;
-using GTFOprogress.Models;
 
 namespace GTFOprogress.Models
 {
@@ -23,7 +22,7 @@ namespace GTFOprogress.Models
             this.Name = name;
             this.Title = title;
             this.Identifier = identifier;
-            this.Levels = levels ?? new List<Level>(); // Ensure levels is never null
+            this.Levels = levels ?? new List<Level>();
         }
 
         public List<Level> GetTier(Tier tier)
@@ -34,15 +33,6 @@ namespace GTFOprogress.Models
         public int GetCompletedLevelsCount() => Levels.Where(l => l.LevelCompletion == TaskState.Complete).Count();
         public int GetCompletedSecondariesCount() => Levels.Where(l => l.SecondaryState == TaskState.Complete).Count();
         public int GetCompletedOverloadCount() => Levels.Where(l => l.OverloadState == TaskState.Complete).Count();
-        
-
         public int GetCompletedPECount() => Levels.Where(l=>l.PrisonerEfficiency == TaskState.Complete).Count();
-
-        [Obsolete]
-        public int GetTotalSecondariesCount() => Levels.Where(l => l.SecondaryState != TaskState.Empty).Count();
-        [Obsolete]
-        public int GetTotalPECount() => Levels.Where(l => l.PrisonerEfficiency != TaskState.Empty).Count();
-        [Obsolete]
-        public int GetTotalOverloadCount() => Levels.Where(l => l.OverloadState != TaskState.Empty).Count();
     }
 }

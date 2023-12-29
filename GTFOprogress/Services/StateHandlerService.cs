@@ -1,7 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using GTFOprogress.Models;
-using GTFOprogress.Common;
-using System.Reflection.Metadata.Ecma335;
+
 
 namespace GTFOprogress.Services
 {
@@ -55,7 +54,6 @@ namespace GTFOprogress.Services
             _localStorage.SetItemAsync("data", _state);
         }
 
-        public State GetState() { return _state; }
         public List<Rundown> GetRundowns() { return _state.Data; }
 
         public void NotifyStateChanged() => StateChanged?.Invoke(this, EventArgs.Empty);

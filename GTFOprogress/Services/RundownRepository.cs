@@ -1,9 +1,6 @@
 ﻿using GTFOprogress.Models;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Net.Http;
 using System.Net.Http.Json;
 
 namespace GTFOprogress.Services

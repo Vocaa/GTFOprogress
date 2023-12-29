@@ -43,17 +43,4 @@
         await _settings.LoadSettings();
         rundowns = _stateHandler.GetRundowns();
     }
-
-    public Level getTestLevelData()
-    {
-        return new Level
-            {
-                Name = "R2E1",
-                Title = "THE TEST",
-                Tier = Tier.E,
-                Stage = 1,
-                Secondary = false,
-                Overload = true,
-            };
-    }
 }

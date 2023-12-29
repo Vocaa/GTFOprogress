@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace GTFOprogress.Common
 {
     public enum Tier

@@ -1,5 +1,4 @@
-﻿using System;
-using GTFOprogress.Common;
+﻿using GTFOprogress.Common;
 
 namespace GTFOprogress.Models
 {
