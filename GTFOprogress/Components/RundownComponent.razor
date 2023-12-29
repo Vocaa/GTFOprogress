@@ -15,26 +15,29 @@
         <div class="text-base text-white text-opacity-50">@rundown.Title</div>
     </div>
 
-    <div class="border border-white h-72 w-96 p-1">
-        @foreach (Tier tier in Tier.GetValues(typeof(Tier)))
-    {
-        <div class="columns-4">
+    <div class="border border-white flex">
+        <div class="h-72 w-96 p-1">
+            @foreach (Tier tier in Tier.GetValues(typeof(Tier)))
+            {
+                <div class="columns-4">
         
-        @foreach (Level level in rundown.GetTier(tier))
-        {
-            <div class="break-inside-avoid-column p-1 transition-transform duration-100 hover:scale-110">
-                <div class="">
-                    <LevelComponent level="level" />
+                @foreach (Level level in rundown.GetTier(tier))
+                {
+                    <div class="break-inside-avoid-column p-1 transition-transform duration-100 hover:scale-110">
+                        <div class="">
+                            <LevelComponent level="level" />
+                        </div>
+                    </div>
+                }
                 </div>
-            </div>
-        }
+            }
         </div>
-    }
+        <div class="w-24">
+            <StatsComponent rundown="rundown"></StatsComponent>
+        </div>
     </div>
 
-    <div>
-        <StatsComponent rundown="rundown"></StatsComponent>
-    </div>
+
 
 </div>
 

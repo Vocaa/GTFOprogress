@@ -17,12 +17,12 @@
 
 
 <div class="flex justify-center">
-    <div class="flex justify-center flex-wrap w-[60rem] gap-8">
+    <div class="flex justify-center flex-wrap w-[66rem] gap-8">
         @if (rundowns != null)
         {
             foreach (Rundown rundown in rundowns)
             {
-                <div class="break-inside-avoid-column w-96 transition-transform duration-100 hover:scale-110">
+                <div class="break-inside-avoid-column w-144 transition-transform duration-100 hover:scale-110">
                     <RundownComponent rundown="rundown" />
                 </div>
             }

@@ -119,6 +119,7 @@
                 return;
 
         }
+        _stateHandler.NotifyStateChanged();
         _stateHandler.SaveState();
         StateHasChanged();
     }

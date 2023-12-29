@@ -10,6 +10,11 @@ namespace GTFOprogress.Models
         public string Name { get; set; }
         public string Title { get; set; }
         public string Identifier { get; set; }
+        public int MainTotal {  get; set; }
+        public int SecondaryTotal {  get; set; }
+        public int OverloadTotal {  get; set; }
+        public int PETotal {  get; set; }
+
         public List<Level> Levels { get; set; }
 
         public Rundown(int id, string name, string title, string identifier, List<Level> levels)
@@ -27,14 +32,17 @@ namespace GTFOprogress.Models
         }
 
         public int GetCompletedLevelsCount() => Levels.Where(l => l.LevelCompletion == TaskState.Complete).Count();
-
-        public int GetTotalSecondariesCount() => Levels.Where(l => l.SecondaryState != TaskState.Empty).Count();
         public int GetCompletedSecondariesCount() => Levels.Where(l => l.SecondaryState == TaskState.Complete).Count();
-
-        public int GetTotalOverloadCount() => Levels.Where(l => l.OverloadState != TaskState.Empty).Count();
         public int GetCompletedOverloadCount() => Levels.Where(l => l.OverloadState == TaskState.Complete).Count();
+        
 
-        public int GetTotalPECount() => Levels.Where(l => l.PrisonerEfficiency != TaskState.Empty).Count();
         public int GetCompletedPECount() => Levels.Where(l=>l.PrisonerEfficiency == TaskState.Complete).Count();
+
+        [Obsolete]
+        public int GetTotalSecondariesCount() => Levels.Where(l => l.SecondaryState != TaskState.Empty).Count();
+        [Obsolete]
+        public int GetTotalPECount() => Levels.Where(l => l.PrisonerEfficiency != TaskState.Empty).Count();
+        [Obsolete]
+        public int GetTotalOverloadCount() => Levels.Where(l => l.OverloadState != TaskState.Empty).Count();
     }
 }

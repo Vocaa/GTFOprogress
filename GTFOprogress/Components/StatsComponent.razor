@@ -2,66 +2,137 @@
 @using GTFOprogress.Models
 
 @inject SettingsService _settings
+@inject StateHandlerService _stateHandler
 
-<div>
-    <div>
-        <div>Main</div>
-        <div>@main</div>
+<!--##################################################################-->
+<!--##################################################################-->
+<!--##################################################################-->
+
+
+<div class="text-xs text-white text-opacity-50 pt-4 pl-4">
+    <div class="@(main.GetPercent() == "100%" ? "text-white text-opacity-100" : "")">
+        <div>MAIN</div>
+        <div class="flex">
+            <div class="w-10">@main.GetFraction()</div>
+            <div>(@main.GetPercent())</div>
+        </div>
     </div>
-    <div>
-        <div>Secondary</div>
-        <div>@secondary</div>
+
+    <br />
+
+    <div class="@(secondary.GetPercent() == "100%" ? "text-white text-opacity-100" : "")">
+        <div>SECONDARY</div>
+        @if (secondary.Total > 0)
+        {
+            <div class="flex">
+                <div class="w-10">@secondary.GetFraction()</div>
+                <div>(@secondary.GetPercent())</div>
+            </div>
+        }
+        else
+        {
+            <div class="text-rose-600">ERR [NO DATA]</div>
+        }
+
     </div>
-    <div>
-        <div>Overload</div>
-        <div>@overload</div>
+
+    <br />
+
+    <div class="@(overload.GetPercent() == "100%" ? "text-white text-opacity-100" : "")">
+        <div>OVERLOAD</div>
+        @if (overload.Total > 0)
+        {
+            <div class="flex">
+                <div class="w-10">@overload.GetFraction()</div>
+                <div>(@overload.GetPercent())</div>
+            </div>
+        }
+        else
+        {
+            <div class="text-rose-600">ERR [NO DATA]</div>
+        }
     </div>
-    <div>
-        <div>Pris. Effic.</div>
-        <div>@prisonerEfficiency</div>
+
+    <br />
+
+    <div class="@(prisonerEfficiency.GetPercent() == "100%" ? "text-white text-opacity-100" : "")">
+        <div>PRIS. EFFIC.</div>
+        @if (prisonerEfficiency.Total > 0)
+        {
+            <div class="flex">
+                <div class="w-10">@prisonerEfficiency.GetFraction()</div>
+                <div>(@prisonerEfficiency.GetPercent())</div>
+            </div>
+        }
+        else
+        {
+            <div class="text-rose-600">ERR [NO DATA]</div>
+        }
     </div>
+
 </div>
+
+<!--##################################################################-->
+<!--##################################################################-->
+<!--##################################################################-->
 
 @code {
     [Parameter]
     public Rundown rundown { get; set; }
 
-    string main;
-    string secondary;
-    string overload;
-    string prisonerEfficiency;
+    Completion main;
+    Completion secondary;
+    Completion overload;
+    Completion prisonerEfficiency;
 
     protected override Task OnInitializedAsync()
     {
+        _stateHandler.StateChanged += (sender, args) => Update();
         SetValues();
         return base.OnInitializedAsync();
     }
 
-    protected override Task OnParametersSetAsync()
+    protected void Update()
     {
         SetValues();
-        return base.OnParametersSetAsync();
+        StateHasChanged();
     }
 
     protected void SetValues()
     {
-        switch(_settings.GetSetting("CompletionFormat"))
-        {
-            case "percent":
-                main = $"{rundown.GetCompletedLevelsCount() / rundown.Levels.Count} %";
-                secondary = $"{rundown.GetCompletedSecondariesCount() / rundown.GetTotalSecondariesCount()} %";
-                overload = $"{rundown.GetCompletedOverloadCount() / rundown.GetTotalOverloadCount()} %";
-                prisonerEfficiency = $"{rundown.GetCompletedPECount() / rundown.GetTotalPECount()} %";
-                break;
-            case "fraction":
-                main = $"{rundown.GetCompletedLevelsCount()} / {rundown.Levels.Count}";
-                secondary = $"{rundown.GetCompletedSecondariesCount()} / {rundown.GetTotalSecondariesCount()}";
-                overload = $"{rundown.GetCompletedOverloadCount()} / {rundown.GetTotalOverloadCount()}";
-                prisonerEfficiency = $"{rundown.GetCompletedPECount()} / {rundown.GetTotalPECount()}";
-                break;
-            default:
-                break;
-        }
+        main = new Completion
+            {
+                Value = rundown.GetCompletedLevelsCount(),
+                Total = rundown.MainTotal
+            };
+        secondary = new Completion
+            {
+                Value = rundown.GetCompletedSecondariesCount(),
+                Total = rundown.SecondaryTotal
+            };
+        overload = new Completion
+            {
+                Value = rundown.GetCompletedOverloadCount(),
+                Total = rundown.OverloadTotal
+            };
+        prisonerEfficiency = new Completion
+            {
+                Value = rundown.GetCompletedPECount(),
+                Total = rundown.PETotal
+            };
     }
 
+    public struct Completion
+    {
+        public int Value { get; set; }
+        public int Total { get; set; }
+
+        //public string GetFraction() => $"{Value} / {Total}";
+
+        public string GetFraction() => (Total > 0) ? $"{Value} / {Total}" : "err";
+
+
+        //public string GetPercent() => $"{Value / Total}%";
+        public string GetPercent() => (Total > 0) ? $"{(double)Value / (double)Total:P0}" : "err";
+    }
 }

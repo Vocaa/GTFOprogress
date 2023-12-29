@@ -16,6 +16,10 @@
     <TailwindInstallUrl>https://github.com/tailwindlabs/tailwindcss/releases/download/v3.3.3/tailwindcss-macos-x64</TailwindInstallUrl>
     <TailwindCliName>tailwindcss</TailwindCliName>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunAOTCompilation>true</RunAOTCompilation>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.13" />

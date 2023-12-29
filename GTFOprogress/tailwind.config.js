@@ -7,4 +7,11 @@ module.exports = {
         'lg:text-4xl',
     ],
     plugins: [],
+    theme: {
+        extend: {
+            width: {
+                '128': '32rem',
+            }
+        },
+    },
 }

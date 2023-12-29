@@ -1,6 +1,5 @@
 {
   "name":  "data",
-  "version": "1.00",
   "last-updated": "Oct 2023",
   "data": [
     {
@@ -8,6 +7,10 @@
       "name": "ALT://Rundown 1.0",
       "title": "Deviation",
       "identifier": "R1",
+      "maintotal": 6,
+      "secondarytotal": 0,
+      "overloadtotal": 0,
+      "petotal": 0,
       "levels": [
         {
           "name": "R1A1",
@@ -64,6 +67,10 @@
       "name": "ALT://Rundown 2.0",
       "title": "Infection",
       "identifier": "R2",
+      "maintotal": 10,
+      "secondarytotal": 0,
+      "overloadtotal": 0,
+      "petotal": 0,
       "levels": [
         {
           "name": "R1A1",
@@ -152,6 +159,10 @@
       "name": "ALT://Rundown 3.0",
       "title": "The Vessel",
       "identifier": "R3",
+      "maintotal": 7,
+      "secondarytotal": 0,
+      "overloadtotal": 0,
+      "petotal": 0,
       "levels": [
         {
           "name": "R3A1",
@@ -216,6 +227,10 @@
       "name": "ALT://Rundown 4.0",
       "title": "Contact",
       "identifier": "R4",
+      "maintotal": 12,
+      "secondarytotal": 12,
+      "overloadtotal": 7,
+      "petotal": 7,
       "levels": [
         {
           "name": "R4A1",
@@ -320,6 +335,10 @@
       "name": "ALT://Rundown 5.0",
       "title": "Rebirth",
       "identifier": "R5",
+      "maintotal": 13,
+      "secondarytotal": 10,
+      "overloadtotal": 5,
+      "petotal": 5,
       "levels": [
         {
           "name": "R5A1",
@@ -432,6 +451,10 @@
       "name": "ALT://Rundown 6.0",
       "title": "Destination",
       "identifier": "R6",
+      "maintotal": 13,
+      "secondarytotal": 6,
+      "overloadtotal": 2,
+      "petotal": 2,
       "levels": [
         {
           "name": "R6A1",
@@ -544,6 +567,10 @@
       "name": "Rundown 7.0",
       "title": "Rise",
       "identifier": "R7",
+      "maintotal": 10,
+      "secondarytotal": 4,
+      "overloadtotal": 4,
+      "petotal": 3,
       "levels": [
         {
           "name": "R7A1",
@@ -630,10 +657,61 @@
     {
       "id": 8,
       "name": "Rundown 8.0",
-      "title": "[REDACTED]",
+      "title": "Duality",
       "identifier": "R8",
+      "maintotal": 6,
+      "secondarytotal": 4,
+      "overloadtotal": 1,
+      "petotal": 1,
       "levels": [
-
+        {
+          "name": "R8A1",
+          "title": "CHAOS",
+          "tier": 1,
+          "stage": 1,
+          "secondary": false,
+          "overload": false
+        },
+        {
+          "name": "R8B1",
+          "title": "CHAOS",
+          "tier": 2,
+          "stage": 1,
+          "secondary": true,
+          "overload": false
+        },
+        {
+          "name": "R8B2",
+          "title": "CHAOS",
+          "tier": 2,
+          "stage": 2,
+          "secondary": true,
+          "overload": false
+        },
+        {
+          "name": "R8C1",
+          "title": "CHAOS",
+          "tier": 3,
+          "stage": 1,
+          "secondary": true,
+          "overload": true
+        },
+        {
+          "name": "R8D1",
+          "title": "CHAOS",
+          "tier": 4,
+          "stage": 1,
+          "secondary": false,
+          "overload": false
+        },
+        {
+          "name": "R8E1",
+          "title": "CHAOS",
+          "tier": 5,
+          "stage": 1,
+          "secondary": true,
+          "overload": false
+        }
       ]
     }
   ]
