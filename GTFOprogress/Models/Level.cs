@@ -53,6 +53,14 @@ namespace GTFOprogress.Models
         {
             return (Secondary && Overload);
         }
+
+        public void MergeLevel(Level input)
+        {
+            this.LevelCompletion = input.LevelCompletion;
+            this.Secondary = input.Secondary;
+            this.Overload = input.Overload;
+            this.PrisonerEfficiency = input.PrisonerEfficiency;
+        }
     }
 }
 

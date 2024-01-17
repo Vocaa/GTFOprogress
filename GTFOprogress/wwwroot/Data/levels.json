@@ -607,7 +607,7 @@
         {
           "name": "R7C1",
           "title": "MONSTER",
-          "tier": 4,
+          "tier": 3,
           "stage": 1,
           "secondary": false,
           "overload": false
@@ -631,7 +631,7 @@
         {
           "name": "R7D1",
           "title": "MOTHER",
-          "tier": 3,
+          "tier": 4,
           "stage": 1,
           "secondary": false,
           "overload": true

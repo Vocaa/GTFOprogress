@@ -30,9 +30,19 @@ namespace GTFOprogress.Models
             return this.Levels.Where(level => level.Tier == tier).ToList();
         }
 
+        public void MergeRundown(List<Level> input)
+        {
+            foreach(var level in input)
+            {
+                this.Levels.Where(i => i.Name == level.Name).First().MergeLevel(level);
+            }
+        }
+
         public int GetCompletedLevelsCount() => Levels.Where(l => l.LevelCompletion == TaskState.Complete).Count();
         public int GetCompletedSecondariesCount() => Levels.Where(l => l.SecondaryState == TaskState.Complete).Count();
         public int GetCompletedOverloadCount() => Levels.Where(l => l.OverloadState == TaskState.Complete).Count();
         public int GetCompletedPECount() => Levels.Where(l=>l.PrisonerEfficiency == TaskState.Complete).Count();
     }
+
+
 }

@@ -39,6 +39,21 @@ namespace GTFOprogress.Services
             
         }
 
+        private async Task<State> LoadStateNew()
+        {
+            bool local = await _localStorage.ContainKeyAsync("data");
+
+            if (local)
+            {
+                State localData = await LoadFromLocalStorage();
+                State result = await LoadFromDefaults();
+                return result.MergeState(localData);
+            } else
+            {
+                return await LoadFromDefaults();
+            }
+        }
+
         private async Task<State> LoadFromLocalStorage()
         {
             return await _localStorage.GetItemAsync<State>("data");

@@ -1,7 +1,9 @@
-﻿<div>
+﻿@inject IJSRuntime JSRuntime
+
+<div>
     <div class="import"> import:// </div>
     <div class="export"> export:// </div>
-    <div class="screenshot"> </div>
+    <div class="screenshot" @onclick="Screenshot">Screenshot</div>
 </div>
 
 @code {
@@ -16,9 +18,9 @@
         //implement
     }
 
-    public void screenshot()
+    private async Task Screenshot()
     {
-        //implement
+        await JSRuntime.InvokeVoidAsync("renderToClipboard");
     }
 
 }
