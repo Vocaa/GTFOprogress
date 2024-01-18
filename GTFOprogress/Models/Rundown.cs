@@ -38,6 +38,41 @@ namespace GTFOprogress.Models
             }
         }
 
+        public bool VisibleCompleted()
+        {
+            var visible = GetVisibleByDefault();
+            foreach (var level in visible)
+            {
+                if (level.LevelCompletion != TaskState.Complete) return false;
+            }
+            return true;
+        }
+
+        public List<Level> GetVisibleByDefault()
+        {
+            return this.Levels.Where(i => i.HiddenByDefault != true).ToList();
+        }
+
+        public List<Level> GetHiddenByDefault()
+        {
+            return this.Levels.Where(i => i.HiddenByDefault == true).ToList();
+        }
+
+        public void HideLevels(List<Level> levels)
+        {
+            foreach (var level in levels)
+            {
+                level.Hidden = true;
+            }
+        }
+        public void UnHideLevels(List<Level> levels)
+        {
+            foreach (var level in levels)
+            {
+                level.Hidden = false;
+            }
+        }
+
         public int GetCompletedLevelsCount() => Levels.Where(l => l.LevelCompletion == TaskState.Complete).Count();
         public int GetCompletedSecondariesCount() => Levels.Where(l => l.SecondaryState == TaskState.Complete).Count();
         public int GetCompletedOverloadCount() => Levels.Where(l => l.OverloadState == TaskState.Complete).Count();

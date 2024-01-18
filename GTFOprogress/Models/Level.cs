@@ -8,6 +8,8 @@ namespace GTFOprogress.Models
         public string Title { get; set; }
         public Tier Tier { get; set; }
         public int Stage { get; set; }
+        public bool? Hidden { get; set; }
+        public bool? HiddenByDefault { get; set; }
         public bool Secondary { get; set; }
         public bool Overload { get; set; }
 

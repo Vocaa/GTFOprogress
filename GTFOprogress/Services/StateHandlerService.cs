@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using GTFOprogress.Common;
 using GTFOprogress.Models;
 
 
@@ -27,7 +28,8 @@ namespace GTFOprogress.Services
             _state.Version = _config["version"];
         }
 
-        private async Task<State> LoadState()
+        [Obsolete]
+        private async Task<State> LoadStateOld()
         {
             bool local = await _localStorage.ContainKeyAsync("data");
 
@@ -38,8 +40,7 @@ namespace GTFOprogress.Services
             return versionMatch ? Result : await LoadFromDefaults();
             
         }
-
-        private async Task<State> LoadStateNew()
+        private async Task<State> LoadState()
         {
             bool local = await _localStorage.ContainKeyAsync("data");
 
@@ -47,7 +48,8 @@ namespace GTFOprogress.Services
             {
                 State localData = await LoadFromLocalStorage();
                 State result = await LoadFromDefaults();
-                return result.MergeState(localData);
+                result.MergeState(localData);
+                return result;
             } else
             {
                 return await LoadFromDefaults();
@@ -71,7 +73,30 @@ namespace GTFOprogress.Services
 
         public List<Rundown> GetRundowns() { return _state.Data; }
 
-        public void NotifyStateChanged() => StateChanged?.Invoke(this, EventArgs.Empty);
+        public Rundown GetRundown(int id)
+        {
+            return _state.Data.Where(i => i.Id == id).First();
+        }
+
+        public void NotifyStateChanged()
+        {
+            UpdateR8();
+            StateChanged?.Invoke(this, EventArgs.Empty);
+            SaveState();
+            
+        }
+
+        public void UpdateR8()
+        {
+            Rundown rundown = GetRundown(8);
+            if (rundown.VisibleCompleted())
+            {
+                rundown.UnHideLevels(rundown.GetHiddenByDefault());
+            } else
+            {
+                rundown.HideLevels(rundown.GetHiddenByDefault());
+            }
+        }
 
     }
 }
