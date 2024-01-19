@@ -10,6 +10,7 @@ html, body {
     background-color: rgba(17, 20, 23, 1);
     color: rgba(255, 255, 255, 1);
     scrollbar-width: 5px;
+    margin-bottom: 3rem;
 }
 
 ::-webkit-scrollbar {
