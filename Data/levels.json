@@ -666,15 +666,25 @@
       "levels": [
         {
           "name": "R8A1",
-          "title": "CHAOS",
+          "title": "ORDER",
           "tier": 1,
           "stage": 1,
           "secondary": false,
           "overload": false
         },
         {
+          "name": "R8A2",
+          "title": "PERSPECTIVE",
+          "tier": 1,
+          "stage": 2,
+          "hidden": true,
+          "hiddenbydefault":  true,
+          "secondary": true,
+          "overload": false
+        },
+        {
           "name": "R8B1",
-          "title": "CHAOS",
+          "title": "EFFECT",
           "tier": 2,
           "stage": 1,
           "secondary": true,
@@ -682,33 +692,83 @@
         },
         {
           "name": "R8B2",
-          "title": "CHAOS",
+          "title": "WARP",
           "tier": 2,
           "stage": 2,
           "secondary": true,
           "overload": false
         },
         {
+          "name": "R8B3",
+          "title": "CAUSE",
+          "tier": 2,
+          "stage": 3,
+          "hidden": true,
+          "hiddenbydefault": true,
+          "secondary": true,
+          "overload": false
+        },
+        {
+          "name": "R8B4",
+          "title": "INSURRECTION",
+          "tier": 2,
+          "stage": 4,
+          "hidden": true,
+          "hiddenbydefault": true,
+          "secondary": true,
+          "overload": false
+        },
+        {
           "name": "R8C1",
-          "title": "CHAOS",
+          "title": "LINK",
           "tier": 3,
           "stage": 1,
           "secondary": true,
           "overload": true
         },
         {
+          "name": "R8C2",
+          "title": "UNPLUGGED",
+          "tier": 3,
+          "stage": 2,
+          "hidden": true,
+          "hiddenbydefault": true,
+          "secondary": false,
+          "overload": false
+        },
+        {
           "name": "R8D1",
-          "title": "CHAOS",
+          "title": "TANDEM",
           "tier": 4,
           "stage": 1,
           "secondary": false,
           "overload": false
         },
         {
+          "name": "R8D2",
+          "title": "SLAUGHTER",
+          "tier": 4,
+          "stage": 2,
+          "hidden": true,
+          "hiddenbydefault": true,
+          "secondary": true,
+          "overload": false
+        },
+        {
           "name": "R8E1",
-          "title": "CHAOS",
+          "title": "VALIANT",
           "tier": 5,
           "stage": 1,
+          "secondary": true,
+          "overload": false
+        },
+        {
+          "name": "R8E2",
+          "title": "RELEASE",
+          "tier": 5,
+          "stage": 2,
+          "hidden": true,
+          "hiddenbydefault": true,
           "secondary": true,
           "overload": false
         }
