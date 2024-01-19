@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using GTFOprogress.Common;
 using GTFOprogress.Models;
 
 
@@ -27,7 +28,8 @@ namespace GTFOprogress.Services
             _state.Version = _config["version"];
         }
 
-        private async Task<State> LoadState()
+        [Obsolete]
+        private async Task<State> LoadStateOld()
         {
             bool local = await _localStorage.ContainKeyAsync("data");
 
@@ -37,6 +39,21 @@ namespace GTFOprogress.Services
 
             return versionMatch ? Result : await LoadFromDefaults();
             
+        }
+        private async Task<State> LoadState()
+        {
+            bool local = await _localStorage.ContainKeyAsync("data");
+
+            if (local)
+            {
+                State localData = await LoadFromLocalStorage();
+                State result = await LoadFromDefaults();
+                MergeStates(result, localData);
+                return result;
+            } else
+            {
+                return await LoadFromDefaults();
+            }
         }
 
         private async Task<State> LoadFromLocalStorage()
@@ -49,14 +66,45 @@ namespace GTFOprogress.Services
             return await _rundownRepository.GetData();
         }
 
+        public void MergeStates(State Left, State Right)
+        {
+            Left.MergeState(Right);
+        }
+
         public void SaveState()
         {
             _localStorage.SetItemAsync("data", _state);
         }
 
-        public List<Rundown> GetRundowns() { return _state.Data; }
+        public async void ResetStateToDefault()
+        {
+            await _localStorage.SetItemAsync("data", await LoadFromDefaults());
+        }
 
-        public void NotifyStateChanged() => StateChanged?.Invoke(this, EventArgs.Empty);
+        public List<Rundown> GetRundowns() { return _state.Data; }
+         
+        public Rundown GetRundown(int id)
+        {
+            return _state.Data.Where(i => i.Id == id).First();
+        }
+
+        public void NotifyStateChanged()
+        {
+            StateChanged?.Invoke(this, EventArgs.Empty);
+            SaveState();
+        }
+
+        public void UpdateR8()
+        {
+            Rundown rundown = GetRundown(8);
+            if (rundown.VisibleCompleted())
+            {
+                rundown.UnHideLevels(rundown.GetHiddenByDefault());
+            } else
+            {
+                rundown.HideLevels(rundown.GetHiddenByDefault());
+            }
+        }
 
     }
 }

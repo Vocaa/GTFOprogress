@@ -30,9 +30,61 @@ namespace GTFOprogress.Models
             return this.Levels.Where(level => level.Tier == tier).ToList();
         }
 
+        public void MergeRundown(List<Level> input)
+        {
+            foreach(var level in input)
+            {
+                this.Levels.Where(i => (i.Tier == level.Tier) && (i.Stage == level.Stage)).First().MergeLevel(level);
+            }
+        }
+
+        public bool VisibleCompleted()
+        {
+            var visible = GetVisibleByDefault();
+            foreach (var level in visible)
+            {
+                if (level.LevelCompletion != TaskState.Complete) return false;
+            }
+            return true;
+        }
+
+        public List<Level> GetVisibleByDefault()
+        {
+            return this.Levels.Where(i => i.HiddenByDefault != true).ToList();
+        }
+
+        public List<Level> GetHiddenByDefault()
+        {
+            return this.Levels.Where(i => i.HiddenByDefault == true).ToList();
+        }
+
+        public void HideLevels(List<Level> levels)
+        {
+            foreach (var level in levels)
+            {
+                level.Hidden = true;
+            }
+        }
+        public void UnHideLevels(List<Level> levels)
+        {
+            foreach (var level in levels)
+            {
+                level.Hidden = false;
+            }
+        }
+        
+        public int GetMainTotal() => Levels.Where(i => i.Hidden != true).Count();
         public int GetCompletedLevelsCount() => Levels.Where(l => l.LevelCompletion == TaskState.Complete).Count();
-        public int GetCompletedSecondariesCount() => Levels.Where(l => l.SecondaryState == TaskState.Complete).Count();
+
+        public int GetSecondaryTotal() => Levels.Where(l => (l.SecondaryState != TaskState.Empty) && (l.Hidden != true)).Count();
+        public int GetCompletedSecondaryCount() => Levels.Where(l => l.SecondaryState == TaskState.Complete).Count();
+
+        public int GetOverloadTotal() => Levels.Where(l => (l.OverloadState != TaskState.Empty) && (l.Hidden != true)).Count();
         public int GetCompletedOverloadCount() => Levels.Where(l => l.OverloadState == TaskState.Complete).Count();
+
+        public int GetPETotal() => Levels.Where(l => (l.PrisonerEfficiency != TaskState.Empty) && (l.Hidden != true)).Count();
         public int GetCompletedPECount() => Levels.Where(l=>l.PrisonerEfficiency == TaskState.Complete).Count();
     }
+
+
 }

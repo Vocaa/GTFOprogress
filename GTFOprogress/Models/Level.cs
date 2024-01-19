@@ -8,6 +8,8 @@ namespace GTFOprogress.Models
         public string Title { get; set; }
         public Tier Tier { get; set; }
         public int Stage { get; set; }
+        public bool? Hidden { get; set; }
+        public bool? HiddenByDefault { get; set; }
         public bool Secondary { get; set; }
         public bool Overload { get; set; }
 
@@ -52,6 +54,16 @@ namespace GTFOprogress.Models
         public bool hasPrisonerEfficiency()
         {
             return (Secondary && Overload);
+        }
+
+        public void MergeLevel(Level input)
+        {
+            this.LevelCompletion = input.LevelCompletion;
+            this.SecondaryState = input.SecondaryState;
+            this.OverloadState = input.OverloadState;
+            this.PrisonerEfficiency = input.PrisonerEfficiency;
+            this.Hidden = input.Hidden;
+            this.HiddenByDefault = input.HiddenByDefault;
         }
     }
 }
