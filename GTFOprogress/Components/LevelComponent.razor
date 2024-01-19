@@ -99,6 +99,9 @@
     [Parameter]
     public Level? level { get; set; }
 
+    [Parameter]
+    public Action NotifyParent { get; set; }
+
     public void updateState(string ts)
     {
         switch (ts)
@@ -120,6 +123,7 @@
 
         }
         _stateHandler.NotifyStateChanged();
+        NotifyParent?.Invoke();
         StateHasChanged();
     }
 

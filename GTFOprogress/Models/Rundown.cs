@@ -34,7 +34,7 @@ namespace GTFOprogress.Models
         {
             foreach(var level in input)
             {
-                this.Levels.Where(i => i.Name == level.Name).First().MergeLevel(level);
+                this.Levels.Where(i => (i.Tier == level.Tier) && (i.Stage == level.Stage)).First().MergeLevel(level);
             }
         }
 
@@ -72,10 +72,17 @@ namespace GTFOprogress.Models
                 level.Hidden = false;
             }
         }
-
+        
+        public int GetMainTotal() => Levels.Where(i => i.Hidden != true).Count();
         public int GetCompletedLevelsCount() => Levels.Where(l => l.LevelCompletion == TaskState.Complete).Count();
-        public int GetCompletedSecondariesCount() => Levels.Where(l => l.SecondaryState == TaskState.Complete).Count();
+
+        public int GetSecondaryTotal() => Levels.Where(l => (l.SecondaryState != TaskState.Empty) && (l.Hidden != true)).Count();
+        public int GetCompletedSecondaryCount() => Levels.Where(l => l.SecondaryState == TaskState.Complete).Count();
+
+        public int GetOverloadTotal() => Levels.Where(l => (l.OverloadState != TaskState.Empty) && (l.Hidden != true)).Count();
         public int GetCompletedOverloadCount() => Levels.Where(l => l.OverloadState == TaskState.Complete).Count();
+
+        public int GetPETotal() => Levels.Where(l => (l.PrisonerEfficiency != TaskState.Empty) && (l.Hidden != true)).Count();
         public int GetCompletedPECount() => Levels.Where(l=>l.PrisonerEfficiency == TaskState.Complete).Count();
     }
 

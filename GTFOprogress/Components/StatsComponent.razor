@@ -92,7 +92,7 @@
         return base.OnInitializedAsync();
     }
 
-    protected void Update()
+    public void Update()
     {
         SetValues();
         StateHasChanged();
@@ -103,22 +103,22 @@
         main = new Completion
             {
                 Value = rundown.GetCompletedLevelsCount(),
-                Total = rundown.MainTotal
+                Total = rundown.GetMainTotal()
             };
         secondary = new Completion
             {
-                Value = rundown.GetCompletedSecondariesCount(),
-                Total = rundown.SecondaryTotal
+                Value = rundown.GetCompletedSecondaryCount(),
+                Total = rundown.GetSecondaryTotal()
             };
         overload = new Completion
             {
                 Value = rundown.GetCompletedOverloadCount(),
-                Total = rundown.OverloadTotal
+                Total = rundown.GetOverloadTotal()
             };
         prisonerEfficiency = new Completion
             {
                 Value = rundown.GetCompletedPECount(),
-                Total = rundown.PETotal
+                Total = rundown.GetPETotal()
             };
     }
 

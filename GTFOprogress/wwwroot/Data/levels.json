@@ -674,12 +674,12 @@
         },
         {
           "name": "R8A2",
-          "title": "",
+          "title": "PERSPECTIVE",
           "tier": 1,
           "stage": 2,
           "hidden": true,
           "hiddenbydefault":  true,
-          "secondary": false,
+          "secondary": true,
           "overload": false
         },
         {
@@ -700,7 +700,7 @@
         },
         {
           "name": "R8B3",
-          "title": "",
+          "title": "CAUSE",
           "tier": 2,
           "stage": 3,
           "hidden": true,
@@ -710,7 +710,7 @@
         },
         {
           "name": "R8B4",
-          "title": "",
+          "title": "INSURRECTION",
           "tier": 2,
           "stage": 4,
           "hidden": true,
@@ -728,13 +728,13 @@
         },
         {
           "name": "R8C2",
-          "title": "",
+          "title": "UNPLUGGED",
           "tier": 3,
           "stage": 2,
           "hidden": true,
           "hiddenbydefault": true,
-          "secondary": true,
-          "overload": true
+          "secondary": false,
+          "overload": false
         },
         {
           "name": "R8D1",
@@ -746,12 +746,12 @@
         },
         {
           "name": "R8D2",
-          "title": "",
+          "title": "SLAUGHTER",
           "tier": 4,
           "stage": 2,
           "hidden": true,
           "hiddenbydefault": true,
-          "secondary": false,
+          "secondary": true,
           "overload": false
         },
         {
@@ -764,7 +764,7 @@
         },
         {
           "name": "R8E2",
-          "title": "",
+          "title": "RELEASE",
           "tier": 5,
           "stage": 2,
           "hidden": true,

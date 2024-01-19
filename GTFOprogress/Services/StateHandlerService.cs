@@ -48,7 +48,7 @@ namespace GTFOprogress.Services
             {
                 State localData = await LoadFromLocalStorage();
                 State result = await LoadFromDefaults();
-                result.MergeState(localData);
+                MergeStates(result, localData);
                 return result;
             } else
             {
@@ -66,13 +66,23 @@ namespace GTFOprogress.Services
             return await _rundownRepository.GetData();
         }
 
+        public void MergeStates(State Left, State Right)
+        {
+            Left.MergeState(Right);
+        }
+
         public void SaveState()
         {
             _localStorage.SetItemAsync("data", _state);
         }
 
-        public List<Rundown> GetRundowns() { return _state.Data; }
+        public async void ResetStateToDefault()
+        {
+            await _localStorage.SetItemAsync("data", await LoadFromDefaults());
+        }
 
+        public List<Rundown> GetRundowns() { return _state.Data; }
+         
         public Rundown GetRundown(int id)
         {
             return _state.Data.Where(i => i.Id == id).First();
@@ -80,10 +90,8 @@ namespace GTFOprogress.Services
 
         public void NotifyStateChanged()
         {
-            UpdateR8();
             StateChanged?.Invoke(this, EventArgs.Empty);
             SaveState();
-            
         }
 
         public void UpdateR8()

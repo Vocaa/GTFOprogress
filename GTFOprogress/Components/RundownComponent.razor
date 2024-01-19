@@ -3,6 +3,7 @@
 @using GTFOprogress.Services
 
 @inject SettingsService _settings
+@inject StateHandlerService _statehandler
 
 <!--##################################################################-->
 <!--##################################################################-->
@@ -27,7 +28,7 @@
                     {
                         <div class="break-inside-avoid-column p-1 transition-transform duration-100 hover:scale-110">
                             <div class="">
-                                <LevelComponent level="level" />
+                                <LevelComponent level="level" NotifyParent="@UpdateFromChild"/>
                             </div>
                         </div>
                     }
@@ -36,7 +37,7 @@
             }
         </div>
         <div class="w-24">
-            <StatsComponent rundown="rundown"></StatsComponent>
+            <StatsComponent rundown="rundown" @ref="stats"></StatsComponent>
         </div>
     </div>
     <button @onclick="update">Update</button>
@@ -53,6 +54,8 @@
     [Parameter]
     public Rundown rundown { get; set; }
 
+    StatsComponent stats;
+
     protected override Task OnInitializedAsync()
     {
 
@@ -62,6 +65,21 @@
     public void update()
     {
         StateHasChanged();
+    }
+
+    public bool HasHiddenLevels()
+    {
+        return (rundown.GetHiddenByDefault().Count > 0);
+    }
+
+    public void UpdateFromChild()
+    {
+        if (HasHiddenLevels())
+        {
+            _statehandler.UpdateR8();
+            StateHasChanged();
+            stats.Update();
+        }
     }
 
 }
